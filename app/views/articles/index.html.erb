@@ -1,0 +1,28 @@
+<table>
+    <thead>
+        <tr>
+            <th>Count</th>
+            <th>ID</th>
+            <th>Name</th>
+            <th>Body</th>
+        </tr>
+    </thead>
+
+    <% ctr = 1 %>
+    <tbody>
+        <% @articles.each do |article| %>
+        <tr>
+            <td><%= ctr %></td>
+            <td><%= article.id %></td>
+            <td><%= article.name %></td>
+            <td><%= article.body %></td>
+            <td><%= link_to 'Show', show_article_path(article) %> </td>
+            <td><%= link_to 'Edit', edit_article_path(article) %></td>
+            <td><%= link_to 'Delete', articles_path(article), method: :delete, data: { confirm: 'Delete Article?' } %></td>
+        </tr>
+        <% ctr += 1 %>
+        <% end %>
+    </tbody>
+</table>
+
+<%= link_to 'New Article', new_article_path %>
