@@ -3,6 +3,7 @@ class ArticlesController < ApplicationController
     
     def index
         @articles = Article.all
+        @arr = [1,2,3] 
     end
 
     def show
