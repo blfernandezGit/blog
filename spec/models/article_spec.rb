@@ -1,19 +1,19 @@
 require 'rails_helper'
 
-RSpec.describe 'Creating Article Posts', driver: :selenium_chrome, js: true do
-    it 'saves and displays the resulting article post' do
-        visit '/articles'
-        click_on 'New Article'
-        fill_in 'Name', with: 'Jet_test_name_1'
-        fill_in 'Body', with: 'Jet_test_body_1'
-        click_on 'Save Article'
-        expect(page).to have_content ('Jet_test_name_1')
-        expect(page).to have_content ('Jet_test_body_1')
-        article_post = Article.order('id').last
-        expect(article_post.name).to eq('Jet_test_name_1')
-        expect(article_post.body).to eq('Jet_test_body_1')
-    end
-end
+# RSpec.describe 'Creating Article Posts', driver: :selenium_chrome, js: true do
+#     it 'saves and displays the resulting article post' do
+#         visit '/articles'
+#         click_on 'New Article'
+#         fill_in 'Name', with: 'Jet_test_name_1'
+#         fill_in 'Body', with: 'Jet_test_body_1'
+#         click_on 'Save Article'
+#         expect(page).to have_content ('Jet_test_name_1')
+#         expect(page).to have_content ('Jet_test_body_1')
+#         article_post = Article.order('id').last
+#         expect(article_post.name).to eq('Jet_test_name_1')
+#         expect(article_post.body).to eq('Jet_test_body_1')
+#     end
+# end
 
 RSpec.describe Article, type: :model do
 
