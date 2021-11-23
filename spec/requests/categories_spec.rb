@@ -61,4 +61,14 @@ RSpec.describe "Categories", type: :request do
       expect(response).to render_template(:show)
     end
   end
+
+  it "DELETE /delete" do
+    expect do
+      delete "/categories/#{category.id}"
+    end.to change(Category, :count).by(-1)
+    expect(response.status).to eq(302)
+    expect(response).to redirect_to(categories_path)
+    follow_redirect!
+    expect(response).to render_template(:index)
+  end
 end

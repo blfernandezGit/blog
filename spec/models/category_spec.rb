@@ -3,6 +3,7 @@ require 'rails_helper'
 category_name = 'Jet_test_name_1'
 presence_error = " can't be blank"
 uniqueness_error = " has already been taken"
+minimum_char_error = " should have a minimum of 3 characters"
 
 RSpec.describe Category, driver: :selenium_chrome, js: true do
   before(:all) do 
@@ -49,6 +50,20 @@ RSpec.describe Category, driver: :selenium_chrome, js: true do
       
       expect(Category.count).to eq(1)
       expect(page).to have_content ("Name#{uniqueness_error}")
+      category_post = Category.order('id').last
+      expect(category_post.name).to eq(category_name)
+    end
+
+
+    it "Is not valid when name is less than 3 characters long" do
+      visit '/categories/new'
+      
+      fill_in 'Name', with: 'OK'
+      
+      click_on 'Create Category'
+      
+      expect(Category.count).to eq(1)
+      expect(page).to have_content ("Name#{minimum_char_error}")
       category_post = Category.order('id').last
       expect(category_post.name).to eq(category_name)
     end
@@ -100,6 +115,19 @@ RSpec.describe Category, driver: :selenium_chrome, js: true do
       category_post = Category.order('id').last
       expect(category_post.name).to eq(category_name2)
       expect(Category.count).to eq(2)
+    end
+
+    it "Is not valid when name is less than 3 characters long" do
+      visit "/categories/#{category.id}/edit"
+      
+      fill_in 'Name', with: 'OK'
+      
+      click_on 'Update Category'
+      
+      expect(Category.count).to eq(1)
+      expect(page).to have_content ("Name#{minimum_char_error}")
+      category_post = Category.order('id').last
+      expect(category_post.name).to eq(category_name)
     end
   end
 

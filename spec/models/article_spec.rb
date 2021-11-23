@@ -16,6 +16,7 @@ require 'rails_helper'
 # end
 
 RSpec.describe Article, type: :model do
+    before(:each) do Article.destroy_all end
 
     let!(:article) {Article.new}
     let!(:article2) {Article.new}
