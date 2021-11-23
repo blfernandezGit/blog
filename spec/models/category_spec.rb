@@ -5,7 +5,10 @@ presence_error = " can't be blank"
 uniqueness_error = " has already been taken"
 
 RSpec.describe Category, driver: :selenium_chrome, js: true do
-  before(:all) do Category.create(name: category_name) end
+  before(:all) do 
+    Category.destroy_all
+    Category.create(name: category_name)
+  end
 
   let!(:category) {Category.order('id').first}
 
@@ -89,11 +92,10 @@ RSpec.describe Category, driver: :selenium_chrome, js: true do
       category_name2 = 'Jet_test_name_2'
       category_new = Category.create(name: category_name2)
       visit "/categories/#{category_new.id}/edit"
-      sleep(10)
       fill_in 'Name', with: category_name
       
       click_on 'Update Category'
-      
+
       expect(page).to have_content ("Name#{uniqueness_error}")
       category_post = Category.order('id').last
       expect(category_post.name).to eq(category_name2)

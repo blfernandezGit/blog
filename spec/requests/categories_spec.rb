@@ -5,7 +5,10 @@ valid_name_2 = "Jet_test_name_5"
 valid_attributes_2 = {name: valid_name_2}
 
 RSpec.describe "Categories", type: :request do
-  before(:all) do Category.create(name: 'Jet_test_name_3') end
+  before(:all) do 
+    Category.destroy_all
+    Category.create(name: 'Jet_test_name_3')
+  end
 
   let!(:category) {Category.order('id').first}
 
@@ -26,7 +29,7 @@ RSpec.describe "Categories", type: :request do
       expect do
         post categories_path, params: { category: valid_attributes }
       end.to change(Category, :count).by(1)
-      expect(response.status).to eq(200)
+      expect(response.status).to eq(302)
       expect(response).to redirect_to(categories_path)
       follow_redirect!
       expect(response).to render_template(:index)
@@ -44,7 +47,7 @@ RSpec.describe "Categories", type: :request do
       expect do
         patch "/categories/#{category.id}", params: { category: valid_attributes_2 }
       end.to change{ Category.first.name }.to(valid_name_2)
-      expect(response.status).to eq(200)
+      expect(response.status).to eq(302)
       expect(response).to redirect_to(categories_path)
       follow_redirect!
       expect(response).to render_template(:index)
