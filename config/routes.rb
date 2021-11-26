@@ -8,6 +8,11 @@ Rails.application.routes.draw do
   delete '/articles.:id' => 'articles#delete', as: 'delete_article'
   get '/articles/:id' => 'articles#show', as: 'show_article'
 
+
+  resources :articles do
+    resources :comments
+  end
+
   resources :categories
   
   end
