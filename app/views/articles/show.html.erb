@@ -8,25 +8,8 @@
     <%= @article.body %>
 </p>
 
-<table> Comments
-    <thead>
-        <tr>
-            <th>ID</th>
-            <th>Body</th>
-        </tr>
-    </thead>
+<%= render 'comments/index', comments: @comments %>
 
-    <tbody>
-        <% @article.comments.each do |comment| %>
-            <tr>
-                <td><%= comment.id %></td>
-                <td><%= comment.body %></td>
-            </tr>
-        <% end %>
-    </tbody>
-</table>
-
-<%= link_to 'Add Comment', new_article_comment_path(@article) %>
 <br/>
 <br/>
 
