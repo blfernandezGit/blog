@@ -3,8 +3,10 @@
     <%= @category.name %>
 </p>
 
-<%= link_to 'Edit', edit_category_path(@category) %>
+<%= link_to 'Update Category', edit_category_path(@category) %>
 
 <br>
+
+<%= render 'tasks/index', tasks: @tasks%>
 
 <%= link_to 'Back', categories_path %>

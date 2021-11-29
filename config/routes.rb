@@ -13,6 +13,13 @@ Rails.application.routes.draw do
     resources :comments
   end
 
-  resources :categories
-  
+  root 'categories#index'
+
+  resources :categories do
+      resources :tasks
   end
+
+  get '/tasks/show_tasks_today', to: 'tasks#show_tasks_today', as: 'show_tasks_today'
+
+  # get '*path', to: 'categories#index', via :all
+end

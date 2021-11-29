@@ -3,7 +3,6 @@ class ArticlesController < ApplicationController
     
     def index
         @articles = Article.all
-        @arr = [1,2,3] 
     end
 
     def show
@@ -16,8 +15,6 @@ class ArticlesController < ApplicationController
 
     def create
         @article = Article.new(article_params)
-        # @article.name = params[:name]
-        # @article.body = params[:body]
 
         if @article.save
             redirect_to articles_path
