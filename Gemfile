@@ -30,7 +30,10 @@ gem 'bootsnap', '>= 1.4.4', require: false
 
 gem 'rails-controller-testing'
 
+# Authentication for categories and tasks in blog app
 gem 'devise'
+# Include authentication in tests
+gem 'factory_bot_rails'
 
 group :development, :test do
   # Call 'byebug' anywhere in the code to stop execution and get a debugger console

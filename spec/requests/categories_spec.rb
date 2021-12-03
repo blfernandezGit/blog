@@ -5,7 +5,9 @@ valid_name_2 = "Jet_test_name_5"
 valid_attributes_2 = {name: valid_name_2}
 
 RSpec.describe "Categories", type: :request do
-  before(:all) do 
+  before(:each) do 
+    User.destroy_all
+    sign_in create(:user)
     Category.destroy_all
     Category.create(name: 'Jet_test_name_3')
   end

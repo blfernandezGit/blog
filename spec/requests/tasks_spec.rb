@@ -1,7 +1,9 @@
 require 'rails_helper'
 
 RSpec.describe "/tasks", type: :request do
-  before(:all) do 
+  before(:each) do 
+    User.destroy_all
+    sign_in create(:user)
     Category.destroy_all
     Category.create(name:"Category") 
   end

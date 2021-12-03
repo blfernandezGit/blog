@@ -7,7 +7,9 @@ uniqueness_error = " has already been taken"
 minimum_char_error = " should have a minimum of 10 characters"
 
 RSpec.describe Task, type: :feature do
-    before(:all) do
+    before(:each) do
+        User.destroy_all
+        sign_in create(:user)
         Task.destroy_all
         Category.destroy_all
         Category.create(name:"Category")

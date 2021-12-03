@@ -6,7 +6,9 @@ uniqueness_error = " has already been taken"
 minimum_char_error = " should have a minimum of 3 characters"
 
 RSpec.describe Category, driver: :selenium_chrome, js: true do
-  before(:all) do 
+  before(:each) do 
+    User.destroy_all
+    sign_in create(:user)
     Category.destroy_all
     Category.create(name: category_name)
   end
