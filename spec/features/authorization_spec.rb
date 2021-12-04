@@ -28,6 +28,11 @@ RSpec.describe Task, type: :feature do
         password: "P@ss"}
     }
 
+    let(:invalid_attributes_3) {
+        {email: "email2@email.com",
+        password: "P@ssw0rd"}
+    }
+
     describe "9. Create user account to have own user credentials" do
         context "with valid parameters" do
             it "signs up user" do
@@ -58,6 +63,17 @@ RSpec.describe Task, type: :feature do
                 
                 expect(page).to have_current_path user_registration_path
                 expect(page).to have_content ("Email#{presence_error}")
+            end
+
+            it 'is not valid without a password' do
+                visit "/users/sign_up"
+
+                fill_in 'Email', with: valid_attributes[:email]
+                
+                click_on 'Sign up'
+                
+                expect(page).to have_current_path user_registration_path
+                expect(page).to have_content ("Password#{presence_error}")
             end
     
             it 'is not valid when password confirmation does not match password' do
@@ -111,6 +127,70 @@ RSpec.describe Task, type: :feature do
                 
                 expect(page).to have_current_path user_registration_path
                 expect(page).to have_content ("Email#{uniqueness_error}")
+            end
+        end
+    end
+
+    describe "10. Login user account to access account and link own tasks" do
+        before(:all) do create(:user) end
+
+        context "with valid parameters" do
+            it "logs in user" do
+                visit '/categories'
+
+                expect(page).to have_current_path new_user_session_path
+
+                fill_in 'Email', with: valid_attributes[:email]
+                fill_in 'Password', with: valid_attributes[:password]
+                
+                click_on 'Log in'
+                
+                expect(page).to have_current_path categories_path
+                expect(page).to have_content signin_success_message
+            end
+        end
+
+        context "with invalid parameters" do
+            it 'is not valid without an email' do
+                visit "/categories"
+
+                fill_in 'Password', with: valid_attributes[:password]
+                
+                click_on 'Log in'
+                
+                expect(page).to have_current_path new_user_session_path
+            end
+
+            it 'is not valid without a password' do
+                visit "/categories"
+
+                fill_in 'Email', with: valid_attributes[:email]
+                
+                click_on 'Log in'
+                
+                expect(page).to have_current_path new_user_session_path
+            end
+    
+            it 'is not valid when email is not valid' do
+                visit "/categories"
+
+                fill_in 'Email', with: invalid_attributes_1[:email]
+                fill_in 'Password', with: invalid_attributes_1[:password]
+                
+                click_on 'Log in'
+                
+                expect(page).to have_current_path new_user_session_path
+            end
+
+            it 'is not valid when user has not signed up' do
+                visit "/categories"
+
+                fill_in 'Email', with: invalid_attributes_3[:email]
+                fill_in 'Password', with: invalid_attributes_3[:password]
+                
+                click_on 'Log in'
+                
+                expect(page).to have_current_path new_user_session_path
             end
         end
     end
