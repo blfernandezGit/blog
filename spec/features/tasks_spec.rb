@@ -10,6 +10,8 @@ RSpec.describe Task, type: :feature do
     before(:each) do
         User.destroy_all
         sign_in create(:user)
+    end
+    before(:all) do
         Task.destroy_all
         Category.destroy_all
         Category.create(name:"Category")

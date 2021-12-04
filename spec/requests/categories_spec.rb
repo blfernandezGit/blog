@@ -5,12 +5,15 @@ valid_name_2 = "Jet_test_name_5"
 valid_attributes_2 = {name: valid_name_2}
 
 RSpec.describe "Categories", type: :request do
-  before(:each) do 
+  before(:each) do
     User.destroy_all
     sign_in create(:user)
+end
+before(:all) do
+    Task.destroy_all
     Category.destroy_all
-    Category.create(name: 'Jet_test_name_3')
-  end
+    Category.create(name:"Category")
+end
 
   let!(:category) {Category.order('id').first}
 

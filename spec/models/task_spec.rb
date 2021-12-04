@@ -1,11 +1,14 @@
 require 'rails_helper'
 
 RSpec.describe Task, type: :model do
-    before(:each) do 
+    before(:each) do
         User.destroy_all
         sign_in create(:user)
+    end
+    before(:all) do
+        Task.destroy_all
         Category.destroy_all
-        Category.create(name:"Category") 
+        Category.create(name:"Category")
     end
 
     let(:valid_attributes) {

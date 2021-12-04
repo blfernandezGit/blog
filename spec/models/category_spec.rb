@@ -9,6 +9,8 @@ RSpec.describe Category, driver: :selenium_chrome, js: true do
   before(:each) do 
     User.destroy_all
     sign_in create(:user)
+  end
+  before(:all) do
     Category.destroy_all
     Category.create(name: category_name)
   end
