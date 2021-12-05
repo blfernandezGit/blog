@@ -9,10 +9,7 @@ RSpec.describe Category, driver: :selenium_chrome, js: true do
   before(:each) do 
     User.destroy_all
     sign_in create(:user)
-  end
-  before(:all) do
-    Category.destroy_all
-    Category.create(name: category_name)
+    Category.create!(name: category_name, user_id: User.first.id)
   end
 
   let!(:category) {Category.order('id').first}
@@ -109,7 +106,7 @@ RSpec.describe Category, driver: :selenium_chrome, js: true do
 
     it "Is not valid when name is duplicated" do
       category_name2 = 'Jet_test_name_2'
-      category_new = Category.create(name: category_name2)
+      category_new = Category.create!(name: category_name2, user_id: User.first.id)
       visit "/categories/#{category_new.id}/edit"
       fill_in 'Name', with: category_name
       

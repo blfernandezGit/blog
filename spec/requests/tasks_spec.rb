@@ -4,11 +4,7 @@ RSpec.describe "/tasks", type: :request do
   before(:each) do
     User.destroy_all
     sign_in create(:user)
-end
-before(:all) do
-    Task.destroy_all
-    Category.destroy_all
-    Category.create(name:"Category")
+    Category.create!(name: "Category", user_id: User.first.id)
 end
   
   # Task. As you add validations to Task, be sure to

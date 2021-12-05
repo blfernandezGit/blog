@@ -59,7 +59,6 @@ class TasksController < ApplicationController
 
   private
     def get_category
-      # byebug
       @category = Category.find(params[:category_id])
     end
 

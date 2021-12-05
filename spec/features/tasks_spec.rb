@@ -10,11 +10,7 @@ RSpec.describe Task, type: :feature do
     before(:each) do
         User.destroy_all
         sign_in create(:user)
-    end
-    before(:all) do
-        Task.destroy_all
-        Category.destroy_all
-        Category.create(name:"Category")
+        Category.create!(name: "Category", user_id: User.first.id)
     end
 
     let(:valid_attributes) {
@@ -330,7 +326,7 @@ RSpec.describe Task, type: :feature do
 
     describe "8. View user tasks for today to remind what are the user's priorities for today" do
         it "shows all Tasks for today" do
-            Category.create(name:"Category2")
+            Category.create!(name:"Category2", user_id: User.first.id)
             task_today_1 = Task.create! valid_attributes
             task_today_2 = Task.create! today_attributes
             task_next_day = Task.create! next_day_attributes

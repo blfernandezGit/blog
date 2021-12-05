@@ -5,4 +5,5 @@ class Category < ApplicationRecord
             message: "should have a minimum of 3 characters"}
 
     has_many :tasks, dependent: :destroy
+    belongs_to :user
 end
