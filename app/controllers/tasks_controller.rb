@@ -54,7 +54,8 @@ class TasksController < ApplicationController
   end
 
   def show_tasks_today
-    @tasks_today = Task.includes(category: :user).where(user: {id: current_user.id}).where("date_trunc('day',task_date) = current_date")
+    # byebug
+    @tasks_today = Task.includes(category: :user).where(user: {id: current_user.id}).where("date_trunc('day',task_date::TIMESTAMPTZ AT TIME ZONE '#{Time.zone.now.formatted_offset}'::INTERVAL) = current_date")
   end
 
   private
